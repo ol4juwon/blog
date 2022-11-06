@@ -8,11 +8,11 @@ const app = express();
 app.use(bodyParser.json())
 app.use(cors());
 const posts = {};
-app.get("/", (req, res) => {
+app.get("/posts", (req, res) => {
     res.send(posts);
 });
 
-app.post("/", async  (req, res) => {
+app.post("/posts", async  (req, res) => {
    
     const id = randomBytes(10).toString("hex");
     const {title} = req.body;
