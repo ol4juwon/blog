@@ -18,7 +18,7 @@ app.post("/", async  (req, res) => {
     const {title} = req.body;
     const data  = {id, title};
     posts[id] = {...data};
-    console.log(posts);
+    // console.log(posts);
     await axios.post("http://localhost:4005/events", {
         type: "PostCreated",
         data
@@ -29,10 +29,11 @@ app.post("/", async  (req, res) => {
 });
 app.post("/events", async (req, res) => {
 
-    console.log("Received Event", req.body.type);
+    // console.log("Received Event", req.body.type);
     res.send({});
 });
 
 app.listen(4000, () => {
+  console.log('v4')
   console.log("Post Service: running on port 4000");
 });

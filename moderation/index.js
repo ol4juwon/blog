@@ -9,13 +9,6 @@ app.use(cors());
 
 const posts = {};
 
-app.get('/posts', async (req, res) => {
-        
-        res.send(posts);
-    
-    }
-
-);
 
 app.post('/events', async (req, res) => {
 
@@ -27,10 +20,18 @@ app.post('/events', async (req, res) => {
     }
   if (type === 'CommentCreated') {
     const {id, comments, postId} = data;
-    console.log(data)
-    console.log(posts)
-    const post = posts[postId];
-    post.comments.push({id, comments});
+    const status = data.comments.includes('orange') ? 'rejected' : 'approved';
+    await axios.post('http://localhost:4005/events', {
+        type: 'CommentModerated',
+        data: {
+            id,
+            postId,
+            comments,
+            status
+        }
+    }).catch((err) => {
+        console.log(err.message);
+    });
   }
 
     res.send({status: 'OK'});
